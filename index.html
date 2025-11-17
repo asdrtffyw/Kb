@@ -1,379 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
+<meta charset="UTF-8">
 <title>Happy Birthday, My Love</title>
+
 <style>
-  :root{
-    --accent:#ff77a9;
-    --ribbon:#ff99c2;
-    --box:#b30059;
-    --bg:#020111;
-    --text:#fff;
-  }
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+        background: #020111;
+        overflow-x: hidden;
+    }
 
-  /* Basic & responsive layout */
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family: "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial;
-    color:var(--text);
-    background:var(--bg);
-    min-height:100vh;
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    overflow-x:hidden;
-  }
+    /* ---------------- STAR BACKGROUND ---------------- */
+    body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.25) 1px, transparent 1px) repeat;
+        background-size: 3px 3px;
+        opacity: 0.18;
+        pointer-events: none;
+        z-index: -1;
+    }
 
-  /* subtle star grid */
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background:
-      radial-gradient(circle, rgba(255,255,255,0.16) 1px, transparent 1px) repeat;
-    background-size:4px 4px;
-    opacity:0.14;
-    pointer-events:none;
-  }
+    /* ---------------- NAVIGATION TABS ---------------- */
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(6px);
+        z-index: 10;
+    }
 
-  /* sticky tabs */
-  .tabs{
-    display:flex;
-    gap:12px;
-    justify-content:center;
-    padding:12px;
-    position:sticky;
-    top:0;
-    z-index:50;
-    backdrop-filter:blur(6px);
-    background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(0,0,0,0.04));
-  }
-  .tab{
-    padding:8px 18px;
-    border-radius:999px;
-    background:rgba(255,255,255,0.06);
-    cursor:pointer;
-    font-weight:600;
-    transition:all .22s;
-    user-select:none;
-  }
-  .tab:hover{ transform:scale(1.03) }
-  .active-tab{ background:var(--accent); box-shadow:0 6px 20px rgba(255,119,169,0.12); }
+    .tab {
+        padding: 10px 25px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 18px;
+    }
 
-  /* section container */
-  .section{ display:none; padding:28px 18px 80px; text-align:center; min-height:60vh; }
-  .section.active{ display:block; }
+    .tab:hover, .active-tab {
+        background: #ff77a9;
+        box-shadow: 0 0 10px #ff77a9;
+    }
 
-  /* headings */
-  h1{ font-size:clamp(22px,5vw,44px); margin:18px 0; text-shadow:0 0 14px rgba(255,255,255,0.07) }
-  .subtitle{ font-size:clamp(14px,2.6vw,18px); opacity:0.86; margin-top:-6px }
+    /* ---------------- CONTENT SECTIONS ---------------- */
+    .section {
+        display: none;
+        padding: 30px 20px;
+        text-align: center;
+        animation: fadeIn 1s ease forwards;
+    }
 
-  /* shooting stars (fixed) */
-  .shooting-star{ position:fixed; top:-20vh; width:2px; height:80px; background:linear-gradient(white,transparent); transform:rotate(45deg); opacity:0; animation:shoot 3s linear infinite; pointer-events:none; z-index:1 }
-  @keyframes shoot{
-    0%{ opacity:0; transform:translate(-200px,-200px) rotate(45deg) }
-    10%{ opacity:1 }
-    100%{ opacity:0; transform:translate(100vw,100vh) rotate(45deg) }
-  }
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
 
-  /* sparkles */
-  .sparkle{ position:fixed; width:5px; height:5px; border-radius:50%; background:white; opacity:0.85; pointer-events:none; animation:sparkleAnim linear infinite; z-index:1 }
-  @keyframes sparkleAnim{ from{ transform:translateY(0) scale(1); opacity:1 } to{ transform:translateY(220px) scale(.2); opacity:0 } }
+    h1 {
+        font-size: 50px;
+        margin-top: 40px;
+        text-shadow: 0 0 15px #fff;
+    }
 
-  /* center content wrapper */
-  .center{ max-width:980px; margin:0 auto; padding:0 12px; z-index:5; position:relative }
+    .subtitle {
+        font-size: 22px;
+        opacity: 0.8;
+        margin-top: -10px;
+    }
 
-  /* Gift box area - responsive sizes */
-  .gift-area{ margin:28px auto 8px; display:flex; justify-content:center; align-items:flex-start }
-  .gift-box{
-    --w:220px; /* base size */
-    width:var(--w);
-    height:180px;
-    background:var(--box);
-    border-radius:12px;
-    position:relative;
-    overflow:visible;
-    transition:transform .6s ease, height .6s ease, opacity .6s ease;
-    transform-origin:center top;
-    box-shadow:0 12px 30px rgba(0,0,0,0.45), inset 0 -6px 12px rgba(0,0,0,0.12);
-  }
+    /* ---------------- SHOOTING STARS ---------------- */
+    .shooting-star {
+        position: fixed;
+        top: 0;
+        width: 2px;
+        height: 80px;
+        background: linear-gradient(white, transparent);
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: shoot 3s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes shoot {
+        0% { opacity: 0; transform: translate(-200px, -200px) rotate(45deg); }
+        10% { opacity: 1; }
+        100% { opacity: 0; transform: translate(800px, 800px) rotate(45deg); }
+    }
 
-  /* the centered lid (we'll rotate it open) */
-  .lid{
-    position:absolute;
-    left:50%;
-    transform:translateX(-50%);
-    top:-40px;
-    width:calc(var(--w) + 10px);
-    height:42px;
-    background:linear-gradient(180deg,#ff4d94,#ff7ab0);
-    border-radius:10px 10px 6px 6px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.25);
-    transform-origin:left center; /* rotate from left to look like opening */
-    transition:transform .65s cubic-bezier(.2,.9,.2,1);
-    z-index:8;
-  }
+    /* ---------------- SPARKLES ---------------- */
+    .sparkle {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        animation: sparkleAnim linear infinite;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    @keyframes sparkleAnim {
+        from { transform: translateY(0) scale(1); opacity: 1; }
+        to { transform: translateY(200px) scale(0); opacity: 0; }
+    }
 
-  /* vertical ribbon on the box - hides when opened */
-  .vertical-ribbon{
-    position:absolute;
-    left:calc(50% - 13px);
-    top:0;
-    width:26px;
-    height:100%;
-    background:var(--ribbon);
-    border-radius:6px;
-    z-index:6;
-    transition:opacity .5s ease, transform .6s ease;
-  }
+    /* ---------------- GIFT BOX (UPDATED) ---------------- */
+    .gift-box-container {
+        margin-top: 140px; /* LOWERED BOX */
+    }
 
-  /* pull ribbon (what the user pulls) */
-  .pull-ribbon{
-    position:absolute;
-    left:50%;
-    top:-68px;
-    transform:translateX(-50%);
-    width:160px;
-    height:38px;
-    line-height:38px;
-    border-radius:24px;
-    background:var(--ribbon);
-    color:#210023;
-    font-weight:700;
-    text-align:center;
-    box-shadow:0 10px 26px rgba(255,153,194,0.12);
-    z-index:12;
-    touch-action:none; /* ensure pointer events for dragging */
-    user-select:none;
-    transition:transform .18s ease, opacity .25s;
-    cursor:grab;
-  }
-  .pull-ribbon:active{ cursor:grabbing }
+    .gift-box {
+        width: 220px;
+        height: 180px;
+        background: #b30059;
+        margin: 0 auto;
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+    }
 
-  /* revealed message */
-  .gift-message{
-    display:none;
-    margin-top:18px;
-    font-size:clamp(16px,3.2vw,22px);
-    text-shadow:0 0 10px rgba(255,170,212,0.12);
-    z-index:6;
-  }
+    /* Middle ribbon */
+    .vertical-ribbon {
+        width: 26px;
+        height: 180px;
+        background: #ff99c2;
+        position: absolute;
+        left: calc(50% - 13px);
+        top: 0;
+        transition: 0.6s;
+    }
 
-  /* when box is opened - hide box and ribbon, rotate lid */
-  .gift-box.opened{ height:0; transform:scaleY(.2); opacity:0; pointer-events:none }
-  .gift-box.opened ~ .gift-message{ display:block; animation:fadeIn .7s ease both }
+    /* Pull ribbon */
+    .pull-ribbon {
+        width: 150px;
+        height: 42px;
+        background: #ff99c2;
+        border-radius: 22px;
+        position: absolute;
+        top: -60px;
+        left: 35px;
+        text-align: center;
+        line-height: 42px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.35s;
+        box-shadow: 0 0 12px #ffb6d9;
+    }
 
-  .lid.opened{ transform:rotate(-120deg) translateX(-12%); opacity:0.98 }
-  .pull-ribbon.opened{ opacity:0; transform:translateY(-140px) rotate(-10deg); pointer-events:none }
-  .vertical-ribbon.opened{ opacity:0; transform:scaleY(.2); pointer-events:none }
+    .pull-ribbon:hover {
+        transform: scale(1.08);
+    }
 
-  @keyframes fadeIn{ from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:translateY(0)} }
+    .gift-message {
+        display: none;
+        margin-top: 30px;
+        font-size: 26px;
+        text-shadow: 0 0 10px #ffb6d9;
+    }
 
-  /* timeline styling */
-  .timeline{
-    width:90%;
-    max-width:900px;
-    margin:20px auto 80px;
-    border-left:3px solid var(--accent);
-    padding-left:28px;
-    text-align:left;
-  }
-  .event{ margin:30px 0 }
-  .event-title{ color:#ffb0d4; font-size:18px; font-weight:700 }
-  .event-text{ opacity:0.9; font-size:15px; margin-top:6px }
+    /* ---------------- TIMELINE ---------------- */
+    .timeline {
+        width: 80%;
+        margin: 50px auto;
+        border-left: 3px solid #ff77a9;
+        padding-left: 40px;
+        text-align: left;
+    }
+    .event {
+        margin: 40px 0;
+    }
+    .event-title {
+        font-size: 26px;
+        color: #ffaad4;
+    }
+    .event-text {
+        font-size: 18px;
+        opacity: 0.85;
+    }
 
-  /* small screens adjustments */
-  @media (max-width:520px){
-    .pull-ribbon{ width:140px; top:-60px; height:36px; line-height:36px }
-    .gift-box{ --w:170px; height:150px }
-    .lid{ top:-36px; height:38px; width:calc(var(--w) + 8px) }
-    .vertical-ribbon{ left:calc(50% - 11px); width:22px }
-    .timeline{ padding-left:18px; border-left-width:2.5px }
-    .tabs{ padding:10px; gap:8px }
-  }
+    /* MOBILE OPTIMIZATION */
+    @media(max-width: 480px) {
+        h1 { font-size: 36px; }
+        .gift-box {
+            width: 180px;
+            height: 150px;
+        }
+        .pull-ribbon {
+            width: 120px;
+            font-size: 16px;
+            left: 30px;
+        }
+    }
 </style>
 </head>
+
 <body>
 
-<!-- shooting stars -->
-<div class="shooting-star" style="left:8%; animation-delay:0s"></div>
-<div class="shooting-star" style="left:40%; animation-delay:1.1s"></div>
-<div class="shooting-star" style="left:72%; animation-delay:0.5s"></div>
+<!-- SHOOTING STARS -->
+<div class="shooting-star" style="left: 10%; animation-delay: 0s;"></div>
+<div class="shooting-star" style="left: 40%; animation-delay: 1.5s;"></div>
+<div class="shooting-star" style="left: 70%; animation-delay: 0.7s;"></div>
 
-<!-- tabs -->
-<div class="tabs" role="tablist" aria-label="Birthday tabs">
-  <div class="tab active-tab" role="tab" tabindex="0" data-target="birthday" onclick="openTab(event)">Happy Birthday</div>
-  <div class="tab" role="tab" tabindex="0" data-target="gift" onclick="openTab(event)">Gift Box</div>
-  <div class="tab" role="tab" tabindex="0" data-target="timeline" onclick="openTab(event)">Timeline</div>
+<!-- -------------------- TABS -------------------- -->
+<div class="tabs">
+    <div class="tab active-tab" onclick="openTab('birthday')">Happy Birthday</div>
+    <div class="tab" onclick="openTab('gift')">Gift Box</div>
+    <div class="tab" onclick="openTab('timeline')">Timeline</div>
 </div>
 
-<!-- CONTENT SECTIONS -->
-<div id="birthday" class="section active">
-  <div class="center">
+<!-- -------------------- SECTION 1: HAPPY BIRTHDAY -------------------- -->
+<div id="birthday" class="section" style="display:block;">
     <h1>✨ Happy Birthday, My Love ✨</h1>
     <p class="subtitle">Tonight the stars shine only for you.</p>
-  </div>
 </div>
 
+<!-- -------------------- SECTION 2: GIFT BOX -------------------- -->
 <div id="gift" class="section">
-  <div class="center">
     <h1>Your Birthday Gift 🎁</h1>
-    <p class="subtitle">Pull the ribbon (drag upward) to reveal your surprise</p>
+    <p class="subtitle">Pull the ribbon to open your surprise</p>
 
-    <div class="gift-area" aria-hidden="false">
-      <div class="gift-box" id="box">
-        <div class="lid" id="lid" aria-hidden="true"></div>
-        <div class="vertical-ribbon" id="verticalRibbon" aria-hidden="true"></div>
-
-        <div class="pull-ribbon" id="pullRibbon" role="button" aria-label="Pull ribbon to open gift" tabindex="0">
-          Pull Me 🎀
+    <div class="gift-box-container">
+        <div class="gift-box">
+            <div class="pull-ribbon" onclick="pullRibbon()">Pull Me 🎀</div>
+            <div class="vertical-ribbon"></div>
         </div>
-      </div>
-    </div>
 
-    <div class="gift-message" id="giftMsg" aria-live="polite">
-      🎁 You opened your birthday surprise!<br><br>
-      My heart shines brightest with you. Happy Birthday, my love ❤️
+        <div id="gift-msg" class="gift-message">
+            🎁 You opened your birthday surprise!  
+            <br><br> My heart shines brightest with you ❤️
+        </div>
     </div>
-
-  </div>
 </div>
 
+<!-- -------------------- SECTION 3: TIMELINE -------------------- -->
 <div id="timeline" class="section">
-  <div class="center">
     <h1>🌙 Our Story Under the Stars</h1>
-    <div class="timeline" aria-label="Relationship timeline">
-      <div class="event">
-        <div class="event-title">✨ The Day We Met</div>
-        <div class="event-text">A spark lit between two hearts far apart.</div>
-      </div>
+    <div class="timeline">
 
-      <div class="event">
-        <div class="event-title">💌 First Long-Distance Call</div>
-        <div class="event-text">Time disappeared. It felt like home.</div>
-      </div>
+        <div class="event">
+            <div class="event-title">✨ The Day We Met</div>
+            <div class="event-text">A spark lit between two hearts far apart.</div>
+        </div>
 
-      <div class="event">
-        <div class="event-title">❤️ Our First “I Love You”</div>
-        <div class="event-text">Two skies. One love.</div>
-      </div>
+        <div class="event">
+            <div class="event-title">💌 First Long-Distance Call</div>
+            <div class="event-text">Time disappeared. It felt like home.</div>
+        </div>
 
-      <div class="event">
-        <div class="event-title">🌟 Today: Your Birthday</div>
-        <div class="event-text">You're the brightest star in my universe.</div>
-      </div>
+        <div class="event">
+            <div class="event-title">❤️ Our First “I Love You”</div>
+            <div class="event-text">Two skies. One love.</div>
+        </div>
+
+        <div class="event">
+            <div class="event-title">🌟 Today: Your Birthday</div>
+            <div class="event-text">You're the brightest star in my universe.</div>
+        </div>
+
     </div>
-  </div>
 </div>
 
+<!-- -------------------- JAVASCRIPT -------------------- -->
 <script>
-/* ---------- TAB SWITCHING (keyboard friendly) ---------- */
-function openTab(e){
-  const target = e.currentTarget?.dataset?.target || (e.target && e.target.dataset && e.target.dataset.target);
-  if(!target) return;
-  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  document.getElementById(target).classList.add('active');
+/* TAB SWITCHING */
+function openTab(name) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = "none");
+    document.getElementById(name).style.display = "block";
 
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active-tab'));
-  // support keyboard events: use currentTarget if available
-  const tabEl = e.currentTarget || e.target;
-  tabEl.classList.add('active-tab');
-  // ensure focus visible for keyboard users
-  tabEl.focus();
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
+    event.target.classList.add('active-tab');
 }
 
-/* ---------- SPARKLES (lightweight) ---------- */
-function createSparkle(){
-  const el = document.createElement('div');
-  el.className = 'sparkle';
-  el.style.left = Math.random()*innerWidth + 'px';
-  el.style.top = Math.random()*innerHeight*0.6 + 'px';
-  el.style.animationDuration = (1 + Math.random()*2) + 's';
-  document.body.appendChild(el);
-  setTimeout(()=>el.remove(), 2800);
+/* RIBBON PULL GIFT ANIMATION */
+function pullRibbon() {
+    const pull = document.querySelector(".pull-ribbon");
+    const ribbon = document.querySelector(".vertical-ribbon");
+    const box = document.querySelector(".gift-box");
+    const msg = document.getElementById("gift-msg");
+
+    pull.style.transform = "translateY(-130px)";
+    pull.style.opacity = "0";
+
+    setTimeout(() => {
+        ribbon.style.opacity = "0";
+    }, 300);
+
+    setTimeout(() => {
+        box.style.height = "0";
+        box.style.transition = "0.7s ease";
+    }, 500);
+
+    setTimeout(() => {
+        msg.style.display = "block";
+    }, 1200);
 }
-const sparkleInterval = setInterval(createSparkle, 220);
 
-/* ---------- RIBBON PULL DRAG BEHAVIOR (pointer events - works on touch) ---------- */
-(function(){
-  const pull = document.getElementById('pullRibbon');
-  const lid = document.getElementById('lid');
-  const box = document.getElementById('box');
-  const vRibbon = document.getElementById('verticalRibbon');
-  const giftMsg = document.getElementById('giftMsg');
-
-  let dragging = false, startY = 0, lastY = 0, moved = 0;
-  const TRIGGER_DELTA = 70; // px needed to open (adjustable)
-
-  // apply pointerdown to start drag (works with touch + mouse)
-  pull.addEventListener('pointerdown', (ev)=>{
-    ev.preventDefault();
-    dragging = true;
-    startY = ev.clientY;
-    lastY = startY;
-    pull.setPointerCapture(ev.pointerId);
-    pull.style.transition = 'none';
-  });
-
-  // move => visual feedback (translate the ribbon upward as you drag)
-  pull.addEventListener('pointermove', (ev)=>{
-    if(!dragging) return;
-    lastY = ev.clientY;
-    moved = startY - lastY; // positive when dragging up
-    // clamp
-    const clamp = Math.max(0, Math.min(moved, 160));
-    pull.style.transform = `translate(-50%, ${-clamp}px) rotate(${clamp/10 * -1}deg)`;
-  });
-
-  // release => decide open or reset
-  pull.addEventListener('pointerup', (ev)=>{
-    if(!dragging) return;
-    dragging = false;
-    pull.releasePointerCapture(ev.pointerId);
-    pull.style.transition = 'transform .35s ease, opacity .25s';
-    if(moved > TRIGGER_DELTA){
-      // open the box
-      openBox();
-    } else {
-      // reset
-      pull.style.transform = 'translateX(-50%)';
-    }
-    moved = 0;
-  });
-
-  // also allow keyboard "Enter/Space" to trigger open for accessibility
-  pull.addEventListener('keydown', (ev)=>{
-    if(ev.key === 'Enter' || ev.key === ' '){
-      ev.preventDefault();
-      openBox();
-    }
-  });
-
-  function openBox(){
-    // add opened classes for CSS transitions
-    pull.classList.add('opened');
-    lid.classList.add('opened');
-    vRibbon.classList.add('opened');
-    // shrink and hide box body
-    box.classList.add('opened');
-
-    // show message after a slight delay (so animation feels natural)
-    setTimeout(()=>{
-      giftMsg.style.display = 'block';
-      giftMsg.classList.add('visible');
-    }, 650);
-  }
-
-  // defensive: if user switches tab away then returns, ensure pointerrelease cleanup
-  window.addEventListener('pointercancel', ()=>{ dragging=false; pull.style.transform='translateX(-50%)' })
-})();
-
-/* ---------- optional: stop sparkles on low memory devices (light) ---------- */
-if(navigator.deviceMemory && navigator.deviceMemory < 1.5){
-  // stop creating many sparkles on very low memory devices
-  clearInterval(sparkleInterval);
+/* SPARKLES */
+function createSparkle() {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * window.innerWidth + "px";
+    s.style.top = Math.random() * window.innerHeight + "px";
+    s.style.animationDuration = (1 + Math.random() * 2) + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2500);
 }
+setInterval(createSparkle, 180);
 </script>
+
 </body>
 </html>
