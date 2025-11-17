@@ -2,288 +2,188 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Birthday Website</title>
+<title>Happy Birthday, My Love</title>
 
 <style>
-    :root {
-        /* ================================
-           🎨 CUSTOMIZATION SECTION
-        ================================== */
-        --hero-title: "Happy Birthday, My Love ✨";
-        --hero-subtitle: "Even under the same starry sky, you shine the brightest.";
-        --letter-title: "💌 A Letter For You";
-        --letter-text: "My love, on this beautiful night filled with stars, I want you to know just how special you are to me. Even though distance keeps us apart, my heart has never felt closer to yours. Every moment we share makes my world brighter. I can’t wait for the day we look at the stars together. Happy Birthday, my love.";
-        --button-text: "Click for a little surprise 🎁";
-        --gallery-title: "✨ Our Little Constellation of Memories ✨";
-        --photo-1: url('https://via.placeholder.com/250');
-        --photo-2: url('https://via.placeholder.com/250');
-        --photo-3: url('https://via.placeholder.com/250');
-        --accent-color: #bb86fc;
-        --bg-top: #0b0f28;
-        --bg-bottom: #000;
-        --star-count: 200;
-    }
-
-    /* ===================================
-       🌌 PAGE STYLING
-    =================================== */
     body {
         margin: 0;
-        font-family: 'Georgia', serif;
-        background: radial-gradient(circle at bottom, var(--bg-top) 0%, var(--bg-bottom) 80%);
-        color: white;
+        font-family: "Segoe UI", sans-serif;
+        color: #fff;
+        background: #020111;
         overflow-x: hidden;
     }
 
-    .star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: white;
-        border-radius: 50%;
-        animation: twinkle 2s infinite alternate ease-in-out;
+    /* Starry background */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: url('https://i.imgur.com/8Y8F8G6.png') repeat;
+        opacity: 0.4;
+        pointer-events: none;
+        animation: drift 200s linear infinite;
     }
 
-    @keyframes twinkle {
-        0% { opacity: 0.2; }
-        100% { opacity: 1; }
+    @keyframes drift {
+        from { background-position: 0 0; }
+        to { background-position: -10000px 5000px; }
     }
 
-    .hero {
+    h1 {
         text-align: center;
-        padding: 120px 20px;
+        margin-top: 70px;
+        font-size: 50px;
+        text-shadow: 0 0 10px #fff;
     }
 
-    .hero h1 {
-        font-size: 3rem;
-        text-shadow: 0 0 20px var(--accent-color);
-    }
-
-    .hero p {
-        font-size: 1.3rem;
-        opacity: 0.85;
-    }
-
-    .letter {
-        max-width: 700px;
-        margin: 80px auto;
-        padding: 40px;
-        background: rgba(255,255,255,0.06);
-        backdrop-filter: blur(8px);
-        border-radius: 18px;
-        box-shadow: 0 0 20px rgba(255,255,255,0.1);
-        line-height: 1.7;
-    }
-
-    .letter h2 {
+    p.subtitle {
         text-align: center;
+        font-size: 22px;
+        margin-top: -10px;
+        opacity: 0.8;
     }
 
-    .btn {
-        display: inline-block;
-        margin-top: 20px;
-        padding: 12px 30px;
-        background: var(--accent-color);
-        color: black;
-        border-radius: 30px;
-        font-weight: bold;
-        text-decoration: none;
-        transition: 0.3s;
+    /* Center section */
+    .center {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    /* Gift box */
+    .gift-box {
+        width: 200px;
+        height: 200px;
+        background: #b30059;
+        margin: 0 auto;
+        border-radius: 10px;
+        position: relative;
         cursor: pointer;
-    }
-    .btn:hover {
-        filter: brightness(1.15);
+        transition: transform 0.3s;
     }
 
-    .gallery {
-        text-align: center;
-        margin: 80px auto;
-    }
-
-    .photo {
-        width: 250px;
-        height: 250px;
-        background-size: cover;
-        background-position: center;
-        display: inline-block;
-        margin: 15px;
-        border-radius: 15px;
-        box-shadow: 0 0 15px rgba(255,255,255,0.2);
-        transition: 0.3s;
-    }
-
-    .photo:hover {
+    .gift-box:hover {
         transform: scale(1.05);
     }
 
-    footer {
-        text-align: center;
-        padding: 40px;
-        opacity: 0.7;
-    }
-
-    /* ===================================
-       🔒 PASSWORD SCREEN
-    =================================== */
-    #password-screen {
-        position: fixed;
-        top: 0;
+    .lid {
+        width: 200px;
+        height: 40px;
+        background: #ff4d94;
+        position: absolute;
+        top: -40px;
         left: 0;
-        width: 100%;
-        height: 100%;
-        background: radial-gradient(circle at bottom, #0b0f28 0%, #000 80%);
-        z-index: 9999;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        overflow: hidden;
+        border-radius: 10px 10px 0 0;
+        transition: transform 0.6s;
+        transform-origin: left center;
     }
 
-    .password-box {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(8px);
-        padding: 50px;
-        border-radius: 20px;
-        text-align: center;
-        box-shadow: 0 0 30px rgba(187, 134, 252, 0.3);
-        color: white;
+    .ribbon {
+        width: 25px;
+        height: 200px;
+        background: #ff99c2;
+        position: absolute;
+        left: 87px;
+        top: 0;
     }
 
-    #password-input {
-        padding: 12px;
-        border-radius: 12px;
-        border: none;
-        margin-top: 15px;
-        font-size: 1rem;
-        text-align: center;
+    /* Hidden gift message */
+    .gift-message {
+        display: none;
+        margin-top: 40px;
+        font-size: 28px;
+        text-shadow: 0 0 10px #ffb6d9;
     }
 
-    #password-submit {
-        margin-top: 20px;
-        padding: 12px 30px;
-        border: none;
-        border-radius: 30px;
-        background: #bb86fc;
-        color: black;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.3s;
+    /* Timeline */
+    .timeline {
+        width: 80%;
+        margin: 100px auto;
+        border-left: 3px solid #ff77a9;
+        padding-left: 40px;
+        position: relative;
     }
 
-    #password-submit:hover {
-        filter: brightness(1.15);
+    .timeline::before {
+        content: "";
+        position: absolute;
+        left: -7px;
+        top: 0;
+        width: 15px;
+        height: 15px;
+        background: #ff77a9;
+        border-radius: 50%;
     }
+
+    .event {
+        margin: 40px 0;
+    }
+
+    .event-title {
+        font-size: 26px;
+        color: #ffaad4;
+        margin-bottom: 5px;
+    }
+
+    .event-text {
+        font-size: 18px;
+        opacity: 0.85;
+    }
+
 </style>
 </head>
 
 <body>
 
-<!-- 🔒 PASSWORD SCREEN -->
-<div id="password-screen">
-    <div class="password-box">
-        <h2>✨ Enter the Secret Code ✨</h2>
-        <p>To see your birthday surprise, type the secret code:</p>
-        <input type="password" id="password-input" placeholder="MM/DD" />
-        <button id="password-submit">Enter</button>
-        <p id="password-error" style="color: #ff6b6b; display: none;">Wrong code! Try again 💌</p>
+<h1>✨ Happy Birthday, My Love ✨</h1>
+<p class="subtitle">A starry night made just for you</p>
+
+<div class="center">
+    <div class="gift-box" onclick="openGift()">
+        <div class="lid" id="lid"></div>
+        <div class="ribbon"></div>
+    </div>
+
+    <div class="gift-message" id="gift-msg">
+        🎁 You opened your birthday surprise!  
+        <br>  
+        My heart is yours, always ❤️
     </div>
 </div>
 
-<!-- ⭐ Auto-generate stars -->
-<script>
-let starCount = parseInt(getComputedStyle(document.documentElement)
-    .getPropertyValue('--star-count'));
+<!-- Timeline -->
+<h1 style="margin-top: 120px;">🌙 Our Story Under the Stars</h1>
 
-for (let i = 0; i < starCount; i++) {
-    let s = document.createElement("div");
-    s.className = "star";
-    s.style.top = Math.random() * 100 + "%";
-    s.style.left = Math.random() * 100 + "%";
-    s.style.width = (Math.random() * 2 + 1) + "px";
-    s.style.height = s.style.width;
-    s.style.animationDelay = Math.random() * 2 + "s";
-    document.body.appendChild(s);
+<div class="timeline">
+    <div class="event">
+        <div class="event-title">✨ The Day We Met</div>
+        <div class="event-text">A moment that changed everything — even if we didn’t know it yet.</div>
+    </div>
+
+    <div class="event">
+        <div class="event-title">💌 First Long-Distance Call</div>
+        <div class="event-text">Hours flew by like minutes. I knew then that distance couldn’t stop us.</div>
+    </div>
+
+    <div class="event">
+        <div class="event-title">❤️ Our First “I Love You”</div>
+        <div class="event-text">A soft confession under two different skies — but one shared feeling.</div>
+    </div>
+
+    <div class="event">
+        <div class="event-title">🌟 Today: Your Birthday</div>
+        <div class="event-text">Another star lighting up my sky. I’m lucky to call you mine.</div>
+    </div>
+</div>
+
+<script>
+function openGift() {
+    const lid = document.getElementById("lid");
+    const msg = document.getElementById("gift-msg");
+
+    lid.style.transform = "rotate(-120deg)";
+    msg.style.display = "block";
 }
-</script>
-
-<!-- 🌙 HERO SECTION -->
-<div class="hero">
-    <h1 id="hero-title"></h1>
-    <p id="hero-subtitle"></p>
-</div>
-
-<!-- 💌 LETTER -->
-<div class="letter">
-    <h2 id="letter-title"></h2>
-    <p id="letter-text"></p>
-    <a class="btn" href="#gallery" id="button-text"></a>
-</div>
-
-<!-- 🌌 GALLERY -->
-<div class="gallery" id="gallery">
-    <h2 id="gallery-title"></h2>
-    <div class="photo" style="background-image: var(--photo-1);"></div>
-    <div class="photo" style="background-image: var(--photo-2);"></div>
-    <div class="photo" style="background-image: var(--photo-3);"></div>
-</div>
-
-<footer>
-    Made under the same stars ✧
-</footer>
-
-<!-- 🎯 Inject text variables into page -->
-<script>
-document.getElementById("hero-title").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--hero-title').replace(/"/g, '');
-
-document.getElementById("hero-subtitle").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--hero-subtitle').replace(/"/g, '');
-
-document.getElementById("letter-title").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--letter-title').replace(/"/g, '');
-
-document.getElementById("letter-text").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--letter-text').replace(/"/g, '');
-
-document.getElementById("button-text").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--button-text').replace(/"/g, '');
-
-document.getElementById("gallery-title").textContent =
-    getComputedStyle(document.documentElement).getPropertyValue('--gallery-title').replace(/"/g, '');
-</script>
-
-<!-- 🔒 Password Logic -->
-<script>
-const passwordScreen = document.getElementById("password-screen");
-const passwordInput = document.getElementById("password-input");
-const passwordSubmit = document.getElementById("password-submit");
-const passwordError = document.getElementById("password-error");
-
-passwordSubmit.addEventListener("click", function() {
-    if (passwordInput.value === "11/18") {
-        passwordScreen.style.display = "none";
-    } else {
-        passwordError.style.display = "block";
-        passwordInput.value = "";
-        passwordInput.focus();
-    }
-});
-
-passwordInput.addEventListener("keypress", function(e) {
-    if (e.key === "Enter") {
-        passwordSubmit.click();
-    }
-});
-</script>
-
-<!-- Smooth scroll for button -->
-<script>
-document.querySelector('.btn').addEventListener('click', function(e) {
-    e.preventDefault();
-    document.querySelector('#gallery').scrollIntoView({ behavior: 'smooth' });
-});
 </script>
 
 </body>
