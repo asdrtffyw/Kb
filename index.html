@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Website</title>
+
+<style>
+    :root {
+        /* ================================
+           🎨 CUSTOMIZATION SECTION
+           Change these like you're editing settings!
+        ================================== */
+
+        /* Text for the hero section */
+        --hero-title: "Happy Birthday, My Love ✨";
+        --hero-subtitle: "Even under the same starry sky, you shine the brightest.";
+
+        /* Letter title + message */
+        --letter-title: "💌 A Letter For You";
+        --letter-text: "My love, on this beautiful night filled with stars, I want you to know just how special you are to me. Even though distance keeps us apart, my heart has never felt closer to yours. Every moment we share makes my world brighter. I can’t wait for the day we look at the stars together. Happy Birthday, my love.";
+
+        /* Surprise button text */
+        --button-text: "Click for a little surprise 🎁";
+
+        /* Gallery heading */
+        --gallery-title: "✨ Our Little Constellation of Memories ✨";
+
+        /* Photo URLs (replace these!) */
+        --photo-1: url('https://via.placeholder.com/250');
+        --photo-2: url('https://via.placeholder.com/250');
+        --photo-3: url('https://via.placeholder.com/250');
+
+        /* Accent color (buttons, glow) */
+        --accent-color: #bb86fc;
+
+        /* Background gradient colors */
+        --bg-top: #0b0f28;
+        --bg-bottom: #000;
+
+        /* Star count */
+        --star-count: 200;
+    }
+
+    /* ===================================
+       🌌 Actual Styling — No Need to Change
+       =================================== */
+
+    body {
+        margin: 0;
+        font-family: 'Georgia', serif;
+        background: radial-gradient(circle at bottom, var(--bg-top) 0%, var(--bg-bottom) 80%);
+        color: white;
+        overflow-x: hidden;
+    }
+
+    .star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 2s infinite alternate ease-in-out;
+    }
+
+    @keyframes twinkle {
+        0% { opacity: 0.2; }
+        100% { opacity: 1; }
+    }
+
+    .hero {
+        text-align: center;
+        padding: 120px 20px;
+    }
+
+    .hero h1 {
+        font-size: 3rem;
+        text-shadow: 0 0 20px var(--accent-color);
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        opacity: 0.85;
+    }
+
+    .letter {
+        max-width: 700px;
+        margin: 80px auto;
+        padding: 40px;
+        background: rgba(255,255,255,0.06);
+        backdrop-filter: blur(8px);
+        border-radius: 18px;
+        box-shadow: 0 0 20px rgba(255,255,255,0.1);
+        line-height: 1.7;
+    }
+
+    .letter h2 {
+        text-align: center;
+    }
+
+    .btn {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 12px 30px;
+        background: var(--accent-color);
+        color: black;
+        border-radius: 30px;
+        font-weight: bold;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+    .btn:hover {
+        filter: brightness(1.15);
+    }
+
+    .gallery {
+        text-align: center;
+        margin: 80px auto;
+    }
+
+    .photo {
+        width: 250px;
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        display: inline-block;
+        margin: 15px;
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(255,255,255,0.2);
+        transition: 0.3s;
+    }
+
+    .photo:hover {
+        transform: scale(1.05);
+    }
+
+    footer {
+        text-align: center;
+        padding: 40px;
+        opacity: 0.7;
+    }
+</style>
+</head>
+
+<body>
+
+<!-- ⭐ Auto-generate stars -->
+<script>
+let starCount = getComputedStyle(document.documentElement)
+    .getPropertyValue('--star-count');
+
+for (let i = 0; i < starCount; i++) {
+    let s = document.createElement("div");
+    s.className = "star";
+    s.style.top = Math.random() * 100 + "%";
+    s.style.left = Math.random() * 100 + "%";
+    s.style.animationDelay = Math.random() + "s";
+    document.body.appendChild(s);
+}
+</script>
+
+<!-- 🌙 HERO SECTION -->
+<div class="hero">
+    <h1 id="hero-title"></h1>
+    <p id="hero-subtitle"></p>
+</div>
+
+<!-- 💌 LETTER -->
+<div class="letter">
+    <h2 id="letter-title"></h2>
+    <p id="letter-text"></p>
+    <a class="btn" href="#gallery" id="button-text"></a>
+</div>
+
+<!-- 🌌 GALLERY -->
+<div class="gallery" id="gallery">
+    <h2 id="gallery-title"></h2>
+
+    <div class="photo" style="background-image: var(--photo-1);"></div>
+    <div class="photo" style="background-image: var(--photo-2);"></div>
+    <div class="photo" style="background-image: var(--photo-3);"></div>
+</div>
+
+<footer>
+    Made under the same stars ✧
+</footer>
+
+<!-- 🎯 Inject text variables into page -->
+<script>
+document.getElementById("hero-title").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--hero-title').replace(/"/g, '');
+
+document.getElementById("hero-subtitle").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--hero-subtitle').replace(/"/g, '');
+
+document.getElementById("letter-title").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--letter-title').replace(/"/g, '');
+
+document.getElementById("letter-text").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--letter-text').replace(/"/g, '');
+
+document.getElementById("button-text").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--button-text').replace(/"/g, '');
+
+document.getElementById("gallery-title").textContent =
+    getComputedStyle(document.documentElement).getPropertyValue('--gallery-title').replace(/"/g, '');
+</script>
+
+</body>
+</html>
