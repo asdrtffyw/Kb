@@ -13,177 +13,277 @@
         overflow-x: hidden;
     }
 
-    /* Starry background */
+    /* ---------------- STAR BACKGROUND ---------------- */
     body::before {
         content: "";
         position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        background: url('https://i.imgur.com/8Y8F8G6.png') repeat;
-        opacity: 0.4;
+        inset: 0;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 1px, transparent 1px) repeat;
+        background-size: 3px 3px;
+        opacity: 0.18;
         pointer-events: none;
-        animation: drift 200s linear infinite;
     }
 
-    @keyframes drift {
-        from { background-position: 0 0; }
-        to { background-position: -10000px 5000px; }
+    /* ---------------- NAVIGATION TABS ---------------- */
+    .tabs {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px 0;
+        position: sticky;
+        top: 0;
+        backdrop-filter: blur(6px);
+        z-index: 10;
     }
 
+    .tab {
+        padding: 10px 25px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 25px;
+        cursor: pointer;
+        transition: 0.3s;
+        font-size: 18px;
+    }
+
+    .tab:hover, .active-tab {
+        background: #ff77a9;
+        box-shadow: 0 0 10px #ff77a9;
+    }
+
+    /* ---------------- CONTENT SECTIONS ---------------- */
+    .section {
+        display: none;
+        padding: 30px;
+        text-align: center;
+        animation: fadeIn 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------------- HEADERS ---------------- */
     h1 {
-        text-align: center;
-        margin-top: 70px;
         font-size: 50px;
-        text-shadow: 0 0 10px #fff;
+        margin-top: 40px;
+        text-shadow: 0 0 15px #fff;
     }
 
-    p.subtitle {
-        text-align: center;
+    .subtitle {
         font-size: 22px;
-        margin-top: -10px;
         opacity: 0.8;
+        margin-top: -10px;
     }
 
-    /* Center section */
-    .center {
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    /* Gift box */
+    /* ---------------- GIFT BOX ---------------- */
     .gift-box {
         width: 200px;
-        height: 200px;
+        height: 170px;
         background: #b30059;
-        margin: 0 auto;
+        margin: 40px auto;
         border-radius: 10px;
         position: relative;
-        cursor: pointer;
-        transition: transform 0.3s;
     }
-
-    .gift-box:hover {
-        transform: scale(1.05);
-    }
-
-    .lid {
-        width: 200px;
-        height: 40px;
-        background: #ff4d94;
-        position: absolute;
-        top: -40px;
-        left: 0;
-        border-radius: 10px 10px 0 0;
-        transition: transform 0.6s;
-        transform-origin: left center;
-    }
-
-    .ribbon {
+    .vertical-ribbon {
         width: 25px;
-        height: 200px;
+        height: 170px;
         background: #ff99c2;
         position: absolute;
         left: 87px;
-        top: 0;
+    }
+    .pull-ribbon {
+        width: 140px;
+        height: 35px;
+        background: #ff99c2;
+        border-radius: 20px;
+        position: absolute;
+        top: -45px;
+        left: 30px;
+        text-align: center;
+        line-height: 35px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+        box-shadow: 0 0 10px #ffb6d9;
+    }
+    .pull-ribbon:hover {
+        transform: scale(1.1);
     }
 
-    /* Hidden gift message */
     .gift-message {
         display: none;
-        margin-top: 40px;
+        margin-top: 25px;
         font-size: 28px;
         text-shadow: 0 0 10px #ffb6d9;
     }
 
-    /* Timeline */
+    /* ---------------- TIMELINE ---------------- */
     .timeline {
         width: 80%;
-        margin: 100px auto;
+        margin: 50px auto;
         border-left: 3px solid #ff77a9;
         padding-left: 40px;
-        position: relative;
+        text-align: left;
     }
-
-    .timeline::before {
-        content: "";
-        position: absolute;
-        left: -7px;
-        top: 0;
-        width: 15px;
-        height: 15px;
-        background: #ff77a9;
-        border-radius: 50%;
-    }
-
     .event {
         margin: 40px 0;
     }
-
     .event-title {
         font-size: 26px;
         color: #ffaad4;
-        margin-bottom: 5px;
     }
-
     .event-text {
         font-size: 18px;
         opacity: 0.85;
     }
 
+    /* ---------------- SPARKLES ---------------- */
+    .sparkle {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: white;
+        border-radius: 50%;
+        animation: sparkleAnim linear infinite;
+        opacity: 0.7;
+        pointer-events: none;
+    }
+    @keyframes sparkleAnim {
+        from { transform: translateY(0) scale(1); opacity: 1; }
+        to { transform: translateY(200px) scale(0); opacity: 0; }
+    }
+
+    /* ---------------- SHOOTING STARS ---------------- */
+    .shooting-star {
+        position: fixed;
+        top: 0;
+        width: 2px;
+        height: 80px;
+        background: linear-gradient(white, transparent);
+        transform: rotate(45deg);
+        opacity: 0;
+        animation: shoot 3s linear infinite;
+        pointer-events: none;
+    }
+    @keyframes shoot {
+        0% { opacity: 0; transform: translate(-200px, -200px) rotate(45deg); }
+        10% { opacity: 1; }
+        100% { opacity: 0; transform: translate(800px, 800px) rotate(45deg); }
+    }
 </style>
 </head>
 
 <body>
 
-<h1>✨ Happy Birthday, My Love ✨</h1>
-<p class="subtitle">A starry night made just for you</p>
+<!-- SHOOTING STARS -->
+<div class="shooting-star" style="left: 10%; animation-delay: 0s;"></div>
+<div class="shooting-star" style="left: 40%; animation-delay: 1.5s;"></div>
+<div class="shooting-star" style="left: 70%; animation-delay: 0.7s;"></div>
 
-<div class="center">
-    <div class="gift-box" onclick="openGift()">
-        <div class="lid" id="lid"></div>
-        <div class="ribbon"></div>
+<!-- SPARKLES created by JS -->
+
+<!-- -------------------- TABS -------------------- -->
+<div class="tabs">
+    <div class="tab active-tab" onclick="openTab('birthday')">Happy Birthday</div>
+    <div class="tab" onclick="openTab('gift')">Gift Box</div>
+    <div class="tab" onclick="openTab('timeline')">Timeline</div>
+</div>
+
+<!-- -------------------- SECTION 1: HAPPY BIRTHDAY -------------------- -->
+<div id="birthday" class="section" style="display:block;">
+    <h1>✨ Happy Birthday, My Love ✨</h1>
+    <p class="subtitle">Tonight the stars shine only for you.</p>
+</div>
+
+<!-- -------------------- SECTION 2: GIFT BOX -------------------- -->
+<div id="gift" class="section">
+    <h1>Your Birthday Gift 🎁</h1>
+    <p class="subtitle">Pull the ribbon to reveal your surprise</p>
+
+    <div class="gift-box">
+        <div class="pull-ribbon" onclick="pullRibbon()">Pull Me 🎀</div>
+        <div class="vertical-ribbon"></div>
     </div>
 
-    <div class="gift-message" id="gift-msg">
+    <div id="gift-msg" class="gift-message">
         🎁 You opened your birthday surprise!  
-        <br>  
-        My heart is yours, always ❤️
+        <br><br>
+        My heart shines brightest with you ❤️
     </div>
 </div>
 
-<!-- Timeline -->
-<h1 style="margin-top: 120px;">🌙 Our Story Under the Stars</h1>
+<!-- -------------------- SECTION 3: TIMELINE -------------------- -->
+<div id="timeline" class="section">
+    <h1>🌙 Our Story Under the Stars</h1>
+    <div class="timeline">
 
-<div class="timeline">
-    <div class="event">
-        <div class="event-title">✨ The Day We Met</div>
-        <div class="event-text">A moment that changed everything — even if we didn’t know it yet.</div>
-    </div>
+        <div class="event">
+            <div class="event-title">✨ The Day We Met</div>
+            <div class="event-text">A spark lit between two hearts far apart.</div>
+        </div>
 
-    <div class="event">
-        <div class="event-title">💌 First Long-Distance Call</div>
-        <div class="event-text">Hours flew by like minutes. I knew then that distance couldn’t stop us.</div>
-    </div>
+        <div class="event">
+            <div class="event-title">💌 First Long-Distance Call</div>
+            <div class="event-text">Time disappeared. It felt like home.</div>
+        </div>
 
-    <div class="event">
-        <div class="event-title">❤️ Our First “I Love You”</div>
-        <div class="event-text">A soft confession under two different skies — but one shared feeling.</div>
-    </div>
+        <div class="event">
+            <div class="event-title">❤️ Our First “I Love You”</div>
+            <div class="event-text">Two skies. One love.</div>
+        </div>
 
-    <div class="event">
-        <div class="event-title">🌟 Today: Your Birthday</div>
-        <div class="event-text">Another star lighting up my sky. I’m lucky to call you mine.</div>
+        <div class="event">
+            <div class="event-title">🌟 Today: Your Birthday</div>
+            <div class="event-text">You're the brightest star in my universe.</div>
+        </div>
+
     </div>
 </div>
 
+<!-- -------------------- JAVASCRIPT -------------------- -->
 <script>
-function openGift() {
-    const lid = document.getElementById("lid");
-    const msg = document.getElementById("gift-msg");
+/* TAB SWITCHING */
+function openTab(name) {
+    document.querySelectorAll('.section').forEach(s => s.style.display = "none");
+    document.getElementById(name).style.display = "block";
 
-    lid.style.transform = "rotate(-120deg)";
-    msg.style.display = "block";
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active-tab'));
+    event.target.classList.add('active-tab');
 }
+
+/* RIBBON PULL GIFT BOX */
+function pullRibbon() {
+    const ribbon = document.querySelector(".pull-ribbon");
+    const msg = document.getElementById("gift-msg");
+    const box = document.querySelector(".gift-box");
+
+    ribbon.style.transform = "translateY(-120px) rotate(-10deg)";
+    ribbon.style.opacity = "0";
+    ribbon.style.pointerEvents = "none";
+
+    setTimeout(() => {
+        box.style.height = "0";
+        box.style.transition = "0.8s";
+    }, 400);
+
+    setTimeout(() => {
+        msg.style.display = "block";
+    }, 1200);
+}
+
+/* SPARKLE GENERATOR */
+function createSparkle() {
+    const s = document.createElement("div");
+    s.className = "sparkle";
+    s.style.left = Math.random() * window.innerWidth + "px";
+    s.style.top = Math.random() * window.innerHeight + "px";
+    s.style.animationDuration = (1 + Math.random() * 2) + "s";
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 2500);
+}
+setInterval(createSparkle, 180);
 </script>
 
 </body>
