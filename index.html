@@ -9,43 +9,25 @@
     :root {
         /* ================================
            🎨 CUSTOMIZATION SECTION
-           Change these like you're editing settings!
         ================================== */
-
-        /* Text for the hero section */
         --hero-title: "Happy Birthday, My Love ✨";
         --hero-subtitle: "Even under the same starry sky, you shine the brightest.";
-
-        /* Letter title + message */
         --letter-title: "💌 A Letter For You";
         --letter-text: "My love, on this beautiful night filled with stars, I want you to know just how special you are to me. Even though distance keeps us apart, my heart has never felt closer to yours. Every moment we share makes my world brighter. I can’t wait for the day we look at the stars together. Happy Birthday, my love.";
-
-        /* Surprise button text */
         --button-text: "Click for a little surprise 🎁";
-
-        /* Gallery heading */
         --gallery-title: "✨ Our Little Constellation of Memories ✨";
-
-        /* Photo URLs (replace these!) */
         --photo-1: url('https://via.placeholder.com/250');
         --photo-2: url('https://via.placeholder.com/250');
         --photo-3: url('https://via.placeholder.com/250');
-
-        /* Accent color (buttons, glow) */
         --accent-color: #bb86fc;
-
-        /* Background gradient colors */
         --bg-top: #0b0f28;
         --bg-bottom: #000;
-
-        /* Star count */
         --star-count: 200;
     }
 
     /* ===================================
-       🌌 Actual Styling — No Need to Change
-       =================================== */
-
+       🌌 PAGE STYLING
+    =================================== */
     body {
         margin: 0;
         font-family: 'Georgia', serif;
@@ -108,6 +90,7 @@
         font-weight: bold;
         text-decoration: none;
         transition: 0.3s;
+        cursor: pointer;
     }
     .btn:hover {
         filter: brightness(1.15);
@@ -139,22 +122,88 @@
         padding: 40px;
         opacity: 0.7;
     }
+
+    /* ===================================
+       🔒 PASSWORD SCREEN
+    =================================== */
+    #password-screen {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at bottom, #0b0f28 0%, #000 80%);
+        z-index: 9999;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        overflow: hidden;
+    }
+
+    .password-box {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(8px);
+        padding: 50px;
+        border-radius: 20px;
+        text-align: center;
+        box-shadow: 0 0 30px rgba(187, 134, 252, 0.3);
+        color: white;
+    }
+
+    #password-input {
+        padding: 12px;
+        border-radius: 12px;
+        border: none;
+        margin-top: 15px;
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    #password-submit {
+        margin-top: 20px;
+        padding: 12px 30px;
+        border: none;
+        border-radius: 30px;
+        background: #bb86fc;
+        color: black;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    #password-submit:hover {
+        filter: brightness(1.15);
+    }
 </style>
 </head>
 
 <body>
 
+<!-- 🔒 PASSWORD SCREEN -->
+<div id="password-screen">
+    <div class="password-box">
+        <h2>✨ Enter the Secret Code ✨</h2>
+        <p>To see your birthday surprise, type the secret code:</p>
+        <input type="password" id="password-input" placeholder="MM/DD" />
+        <button id="password-submit">Enter</button>
+        <p id="password-error" style="color: #ff6b6b; display: none;">Wrong code! Try again 💌</p>
+    </div>
+</div>
+
 <!-- ⭐ Auto-generate stars -->
 <script>
-let starCount = getComputedStyle(document.documentElement)
-    .getPropertyValue('--star-count');
+let starCount = parseInt(getComputedStyle(document.documentElement)
+    .getPropertyValue('--star-count'));
 
 for (let i = 0; i < starCount; i++) {
     let s = document.createElement("div");
     s.className = "star";
     s.style.top = Math.random() * 100 + "%";
     s.style.left = Math.random() * 100 + "%";
-    s.style.animationDelay = Math.random() + "s";
+    s.style.width = (Math.random() * 2 + 1) + "px";
+    s.style.height = s.style.width;
+    s.style.animationDelay = Math.random() * 2 + "s";
     document.body.appendChild(s);
 }
 </script>
@@ -175,7 +224,6 @@ for (let i = 0; i < starCount; i++) {
 <!-- 🌌 GALLERY -->
 <div class="gallery" id="gallery">
     <h2 id="gallery-title"></h2>
-
     <div class="photo" style="background-image: var(--photo-1);"></div>
     <div class="photo" style="background-image: var(--photo-2);"></div>
     <div class="photo" style="background-image: var(--photo-3);"></div>
@@ -204,6 +252,38 @@ document.getElementById("button-text").textContent =
 
 document.getElementById("gallery-title").textContent =
     getComputedStyle(document.documentElement).getPropertyValue('--gallery-title').replace(/"/g, '');
+</script>
+
+<!-- 🔒 Password Logic -->
+<script>
+const passwordScreen = document.getElementById("password-screen");
+const passwordInput = document.getElementById("password-input");
+const passwordSubmit = document.getElementById("password-submit");
+const passwordError = document.getElementById("password-error");
+
+passwordSubmit.addEventListener("click", function() {
+    if (passwordInput.value === "11/18") {
+        passwordScreen.style.display = "none";
+    } else {
+        passwordError.style.display = "block";
+        passwordInput.value = "";
+        passwordInput.focus();
+    }
+});
+
+passwordInput.addEventListener("keypress", function(e) {
+    if (e.key === "Enter") {
+        passwordSubmit.click();
+    }
+});
+</script>
+
+<!-- Smooth scroll for button -->
+<script>
+document.querySelector('.btn').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.querySelector('#gallery').scrollIntoView({ behavior: 'smooth' });
+});
 </script>
 
 </body>
