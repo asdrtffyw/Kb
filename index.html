@@ -1,331 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday</title>
-
-<style>
-/* --------------------------------------------------
-   GLOBAL STYLES
--------------------------------------------------- */
-body {
-  margin: 0;
-  font-family: "Poppins", sans-serif;
-  background: #05000f;
-  color: white;
-  overflow-x: hidden;
-}
-
-/* Star background effect */
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  background: url('https://i.imgur.com/8aPq1Wz.png');
-  opacity: 0.25;
-  pointer-events: none;
-  z-index: -1;
-}
-
-/* --------------------------------------------------
-   TAB NAVIGATION
--------------------------------------------------- */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding: 1rem;
-  background: rgba(0,0,0,0.45);
-  backdrop-filter: blur(8px);
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-nav button {
-  padding: 0.7rem 1.3rem;
-  border-radius: 40px;
-  border: none;
-  font-size: 1rem;
-  background: #1c1c1c;
-  color: white;
-  cursor: pointer;
-  transition: 0.3s;
-}
-
-nav button.active {
-  background: #ff73b7;
-  color: black;
-}
-
-/* --------------------------------------------------
-   TAB CONTENT SECTIONS
--------------------------------------------------- */
-.tab-content {
-  display: none;
-  padding: 3rem 1.5rem;
-  text-align: center;
-}
-
-.tab-content.active {
-  display: block;
-}
-
-/* --------------------------------------------------
-   GIFT BOX SECTION
--------------------------------------------------- */
-.gift-container {
-  margin-top: 8vh;
-  display: flex;
-  justify-content: center;
-}
-
-.gift-box {
-  position: relative;
-  width: 220px;
-  height: 240px;
-}
-
-/* Lid */
-.lid {
-  position: absolute;
-  width: 220px;
-  height: 55px;
-  background: #ff6fae;
-  border-radius: 12px;
-  z-index: 3;
-  display: flex;
-  justify-content: center;
-}
-
-/* Top ribbon */
-.ribbon-top {
-  width: 55px;
-  height: 60px;
-  background: #ff8fc6;
-  border-radius: 12px;
-  margin-top: -30px;
-}
-
-/* Vertical ribbon */
-.ribbon-vertical {
-  position: absolute;
-  top: 55px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 185px;
-  background: #ff8fc6;
-  border-radius: 10px;
-  z-index: 2;
-}
-
-/* Bottom box */
-.box {
-  position: absolute;
-  width: 220px;
-  height: 185px;
-  bottom: 0;
-  left: 0;
-  background: #c30759;
-  border-radius: 14px;
-  z-index: 1;
-}
-
-/* Hidden message */
-#gift-message {
-  display: none;
-  margin-top: 2rem;
-  animation: fadeIn 1s ease forwards;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-/* --------------------------------------------------
-   TIMELINE
--------------------------------------------------- */
-.timeline {
-  max-width: 500px;
-  margin: auto;
-  text-align: left;
-}
-
-.timeline-item {
-  margin: 1.5rem 0;
-  padding-left: 1rem;
-  border-left: 3px solid #ff73b7;
-}
-
-.timeline-item h3 {
-  margin: 0 0 0.3rem;
-  color: #ff73b7;
-}
-
-/* --------------------------------------------------
-   MOBILE RESPONSIVE
--------------------------------------------------- */
-@media (max-width: 480px) {
-  .gift-box { width: 180px; height: 205px; }
-  .lid { width: 180px; height: 45px; }
-  .ribbon-vertical { width: 32px; height: 160px; top: 45px; }
-  .ribbon-top { width: 45px; height: 50px; }
-  .box { width: 180px; height: 160px; }
-}
-
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday 💗</title>
+    <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!-- --------------------------------------------------
-     NAVIGATION
--------------------------------------------------- -->
-<nav>
-  <button class="tab-btn active" data-tab="birthday">Happy Birthday</button>
-  <button class="tab-btn" data-tab="gift-box">Gift Box</button>
-  <button class="tab-btn" data-tab="timeline">Timeline</button>
-</nav>
+    <!-- Navigation Tabs -->
+    <nav>
+        <button class="tab-btn" onclick="openTab('home')">Home</button>
+        <button class="tab-btn" onclick="openTab('timeline')">Timeline</button>
+        <button class="tab-btn" onclick="openTab('surprise')">Surprise 🎁</button>
+    </nav>
 
-<!-- --------------------------------------------------
-     TAB 1 — HAPPY BIRTHDAY
--------------------------------------------------- -->
-<section id="birthday" class="tab-content active">
-  <h1>💖 Happy Birthday, My Love 💖</h1>
-  <p>You mean the world to me. I made something special just for you.</p>
-</section>
+    <!-- HOME TAB -->
+    <section class="tab-page" id="home">
+        <h1>💗 Happy Birthday, My Love 💗</h1>
+        <p class="cute-text">Even from far away, you mean the world to me.</p>
+        <img src="https://i.imgur.com/2yaf2wb.png" class="hero-img">
+    </section>
 
-<!-- --------------------------------------------------
-     TAB 2 — GIFT BOX
--------------------------------------------------- -->
-<section id="gift-box" class="tab-content">
+    <!-- TIMELINE TAB -->
+    <section class="tab-page" id="timeline" style="display:none;">
+        <h2>Our Timeline 💞</h2>
 
-  <h1>Your Birthday Gift 🎁</h1>
-  <p>Pull the ribbon (drag upward) to reveal your surprise</p>
+        <div class="timeline">
+            <div class="event">
+                <h3>✨ When We Met</h3>
+                <p>Everything changed in the best way.</p>
+            </div>
 
-  <div class="gift-container">
-    <div class="gift-box">
-      <div class="lid">
-        <div class="ribbon-top"></div>
-      </div>
+            <div class="event">
+                <h3>💗 Our First Call</h3>
+                <p>I fell for your voice instantly.</p>
+            </div>
 
-      <div class="ribbon-vertical"></div>
+            <div class="event">
+                <h3>🌙 Late Night Talks</h3>
+                <p>My favorite part of every day.</p>
+            </div>
+        </div>
+    </section>
 
-      <div class="box"></div>
-    </div>
-  </div>
+    <!-- SURPRISE TAB -->
+    <section class="tab-page" id="surprise" style="display:none;">
+        <h2>🔐 Enter Password</h2>
+        <input type="password" id="passwordInput" placeholder="Enter password...">
+        <button onclick="unlock()">Unlock</button>
 
-  <div id="gift-message">
-    <h2>🌟 Happy Birthday, my love 🌟</h2>
-    <p>You deserve the stars, the moon, and every beautiful moment.</p>
-  </div>
-</section>
+        <div id="secret" style="display:none; margin-top:20px;">
+            <h2>🎉 Surprise, Beautiful 🎉</h2>
+            <p class="cute-text">I made this just for you.</p>
+            <img src="https://i.imgur.com/Wl7h5jN.png" class="hero-img">
+        </div>
+    </section>
 
-<!-- --------------------------------------------------
-     TAB 3 — TIMELINE
--------------------------------------------------- -->
-<section id="timeline" class="tab-content">
-  <h1>Our Timeline 🌙✨</h1>
-
-  <div class="timeline">
-    <div class="timeline-item">
-      <h3>Day 1</h3>
-      <p>We met and everything changed.</p>
-    </div>
-
-    <div class="timeline-item">
-      <h3>Our First Call</h3>
-      <p>The moment your voice made everything brighter.</p>
-    </div>
-
-    <div class="timeline-item">
-      <h3>Today</h3>
-      <p>Still falling for you, more and more every day.</p>
-    </div>
-  </div>
-</section>
-
-<!-- --------------------------------------------------
-     JAVASCRIPT
--------------------------------------------------- -->
-<script>
-/* TAB SYSTEM */
-const tabs = document.querySelectorAll(".tab-btn");
-const sections = document.querySelectorAll(".tab-content");
-
-tabs.forEach(btn => {
-  btn.addEventListener("click", () => {
-    tabs.forEach(b => b.classList.remove("active"));
-    btn.classList.add("active");
-
-    sections.forEach(sec => sec.classList.remove("active"));
-    document.getElementById(btn.dataset.tab).classList.add("active");
-  });
-});
-
-/* GIFT BOX PULL ANIMATION */
-const lid = document.querySelector(".lid");
-const ribbonV = document.querySelector(".ribbon-vertical");
-const ribbonTop = document.querySelector(".ribbon-top");
-const giftMessage = document.getElementById("gift-message");
-
-let startY = 0;
-let currentY = 0;
-let dragging = false;
-
-function startDrag(e) {
-  dragging = true;
-  startY = e.touches ? e.touches[0].clientY : e.clientY;
-}
-
-function drag(e) {
-  if (!dragging) return;
-  currentY = (e.touches ? e.touches[0].clientY : e.clientY) - startY;
-
-  if (currentY < -20) {
-    lid.style.transform = `translateY(${currentY}px)`;
-    ribbonV.style.transform = `translate(-50%, ${currentY}px)`;
-    ribbonTop.style.transform = `translateY(${currentY}px)`;
-  }
-}
-
-function endDrag() {
-  if (!dragging) return;
-  dragging = false;
-
-  if (currentY < -80) {
-    lid.style.transition = "0.5s";
-    ribbonV.style.transition = "0.5s";
-    ribbonTop.style.transition = "0.5s";
-
-    lid.style.transform = "translateY(-160px)";
-    ribbonV.style.transform = "translate(-50%, -160px)";
-    ribbonTop.style.transform = "translateY(-160px)";
-
-    setTimeout(() => giftMessage.style.display = "block", 400);
-  } else {
-    lid.style.transform = "";
-    ribbonV.style.transform = "";
-    ribbonTop.style.transform = "";
-  }
-}
-
-[lid, ribbonTop].forEach(el => {
-  el.addEventListener("mousedown", startDrag);
-  el.addEventListener("touchstart", startDrag);
-});
-
-window.addEventListener("mousemove", drag);
-window.addEventListener("touchmove", drag);
-
-window.addEventListener("mouseup", endDrag);
-window.addEventListener("touchend", endDrag);
-
-</script>
-
+<script src="script.js"></script>
 </body>
 </html>
